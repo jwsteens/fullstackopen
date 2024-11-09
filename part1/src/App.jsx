@@ -1,33 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+const Hello = (props) => {
+  const age = new Date().getFullYear() - props.year
+  console.log(props, age)
+  return (
+    <>
+      <p>Hello, {props.name}!</p>
+      <p>You are {age}</p>
+    </>
+  )
+}
 
-function App() {
-  const [count, setCount] = useState(0)
+const Friends = () => {
+  const friends = ["Rens", "Tom", "Luca"]
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p>{friends}</p>
+    </>
+  )
+}
+
+const App = () => {
+  console.log("Hello console! From App component!")
+  const year = 2003
+
+  return (
+    <>
+      <h1>Greetings, human</h1>
+      <Hello name="Jeroen" year={year}/>
+      <Friends/>
     </>
   )
 }
