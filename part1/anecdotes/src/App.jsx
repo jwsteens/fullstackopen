@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const Button = ({ handler, anecdotes }) => {
+const Button = ({ handler, anecdotes=[] }) => {
   return ( <button onClick={() => {
     const index = Math.floor(Math.random() * (anecdotes.length))
     handler(index)
