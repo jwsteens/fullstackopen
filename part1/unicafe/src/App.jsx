@@ -41,12 +41,6 @@ const Statistics = ({good, neutral, bad}) => {
         <td>Positive</td>
         <td>{positive}%</td>
       </tr>
-      {/* Good: {good}<br/>
-      Neutral: {neutral}<br/>
-      Bad: {bad}<br/>
-      Total: {total}<br/>
-      Average: {average}<br/>
-      Positive: {positive}% */}
     </>
   )
 }
