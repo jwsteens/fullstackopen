@@ -19,11 +19,11 @@ const Form = (props) => {
     if (newName === "") return alert("Please enter a name.")
     if (newPhone === "") return alert("Please enter a phone number.")
     if (persons.find(person => person.name === newName)) return alert(`${newName} is already in the phonebook.`)
-    if (persons.find(person => person.phone === newPhone)) return alert(`Someone with phone number ${newPhone} is already in the phonebook.`)
+    if (persons.find(person => person.number === newPhone)) return alert(`Someone with phone number ${newPhone} is already in the phonebook.`)
 
     const personObject = {
       name: newName,
-      phone: newPhone,
+      number: newPhone,
       id: String(persons.length + 1)
     }
 
