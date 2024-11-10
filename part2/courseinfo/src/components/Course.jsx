@@ -1,10 +1,12 @@
 const Content = ({ course }) => {
+    const totalExercises = course.parts.map(part => part.exercises).reduce((partialSum, value) => partialSum + value)
     
     return (
         <div>
             <ul>
                 {course.parts.map(part => <li key={part.id}>{part.name} {part.exercises}</li>)}
             </ul>
+            <p>Total of {totalExercises} exercises</p>
         </div>
     )
 }
