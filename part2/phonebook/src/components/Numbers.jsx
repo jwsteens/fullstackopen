@@ -1,8 +1,6 @@
 import { useState } from "react"
 
-const Entry = ({ person }) => {
-	return <li>{person.name} {person.number}</li>
-}
+const Person = ({ person }) => <li>{person.name} {person.number}</li>
 
 const Numbers = ({persons}) => {
 	const [ newSearch, setNewSearch ] = useState("")
@@ -24,7 +22,7 @@ const Numbers = ({persons}) => {
 					<input onChange={searchHandler}/>
 				</div>
         <ul>
-					{filteredPersons.map(person => <Entry key={person.id} person={person} />)}
+					{filteredPersons.map(person => <Person key={person.id} person={person} />)}
         </ul>
       </div>
 	)
