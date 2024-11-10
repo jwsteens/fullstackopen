@@ -1,8 +1,31 @@
 import { useState } from "react"
+import personService from '../services/persons'
 
-const Person = ({ person }) => <li>{person.name} {person.number}</li>
+const deletePerson = (person, setPersons) => {
+  if (!window.confirm(`Are you sure you want to delete ${person.name}?`)) return
 
-const Numbers = ({persons}) => {
+  personService
+    .deletePerson(person.id)
+    .then(res => {
+      personService
+        .getAllPersons()
+        .then(res => {
+          setPersons(res)
+        })
+    })
+    .catch(error => console.log(error))
+}
+
+const Person = ({ person, persons, setPersons }) => {
+  return (
+    <div>
+      <li>{person.name} {person.number}</li>
+      <button onClick={() => deletePerson(person, setPersons)}>Delete</button>
+    </div>
+  )
+} 
+
+const Numbers = ({ persons, setPersons }) => {
 	const [ newSearch, setNewSearch ] = useState("")
 
 	const searchHandler = (event) => {
@@ -13,7 +36,7 @@ const Numbers = ({persons}) => {
 		const lowercaseName = person.name.toLowerCase()
 		return lowercaseName.includes(newSearch)
 	}) : persons
-
+  
 	return (
 		<div>
         <h2>Numbers</h2>
@@ -22,7 +45,7 @@ const Numbers = ({persons}) => {
 					<input onChange={searchHandler}/>
 				</div>
         <ul>
-					{filteredPersons.map(person => <Person key={person.id} person={person} />)}
+					{filteredPersons.map(person => <Person key={person.id} person={person} setPersons={setPersons} />)}
         </ul>
       </div>
 	)
