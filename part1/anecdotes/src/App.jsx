@@ -1,5 +1,18 @@
 import { useState } from 'react'
 
+// Functions
+
+function indexOfMax(array) {
+  let maxIndex = 0
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] > array[maxIndex]) maxIndex = i
+  }
+
+  return maxIndex
+}
+
+// Components
+
 const NextButton = ({ handler, anecdotes }) => {
   return ( <button onClick={() => {
     const index = Math.floor(Math.random() * (anecdotes.length))
@@ -14,6 +27,19 @@ const VoteButton = ({ selected, votes, handler }) => {
     handler(newVotes)
   }}>Vote for anecdote</button>)
 }
+
+const MostPopularAnecdote = ({ anecdotes, votes }) => {
+  return (
+    <>
+      <h1>Most popular anecdote</h1>
+      <p>
+        {anecdotes[indexOfMax(votes)]}
+      </p>
+    </>
+  )
+}
+
+// App
 
 const App = () => {
   const anecdotes = [
@@ -38,6 +64,7 @@ const App = () => {
       </p>
       <VoteButton selected={selected} votes={votes} handler={setVotes} />
       <NextButton handler={setSelected} anecdotes={anecdotes} />
+      <MostPopularAnecdote anecdotes={anecdotes} votes={votes} />
     </div>
   )
 }
