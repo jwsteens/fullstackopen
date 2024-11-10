@@ -11,6 +11,9 @@ const Form = (props) => {
   const addName = (event) => {
     event.preventDefault()
 
+    if (newName === "") return alert("Please enter a name.")
+    if (persons.find(person => person.name === newName)) return alert(`${newName} is already in the phonebook.`)
+
     const nameObject = {
       name: newName,
       id: String(persons.length + 1)

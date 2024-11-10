@@ -5,7 +5,7 @@ import Numbers from './components/Numbers'
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', id: "1" }
-  ]) 
+  ])
   
   
 
