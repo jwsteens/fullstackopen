@@ -21,4 +21,12 @@ const deletePerson = async id => {
     })
 }
 
-export default { getAllPersons, createPerson, deletePerson }
+const updatePerson = async ( id, personObject ) => {
+  return axios
+    .put(`http://localhost:3001/persons/${id}`, personObject)
+    .then(res => {
+      return res.data
+    })
+}
+
+export default { getAllPersons, createPerson, deletePerson, updatePerson }
