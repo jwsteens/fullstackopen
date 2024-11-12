@@ -1,31 +1,39 @@
 import { useState } from "react"
 import personService from '../services/persons'
 
-const deletePerson = (person, setPersons) => {
-  if (!window.confirm(`Are you sure you want to delete ${person.name}?`)) return
 
-  personService
-    .deletePerson(person.id)
-    .then(res => {
-      personService
-        .getAllPersons()
-        .then(res => {
-          setPersons(res)
-        })
-    })
-    .catch(error => console.log(error))
-}
 
-const Person = ({ person, persons, setPersons }) => {
+const Person = ({ person, persons, setPersons, errorHandler }) => {
+
+  const deletePerson = (person, setPersons) => {
+    if (!window.confirm(`Are you sure you want to delete ${person.name}?`)) return
+  
+    personService
+      .deletePerson(person.id)
+      .then(res => {
+        personService
+          .getAllPersons()
+          .then(res => {
+            setPersons(res)
+          })
+      })
+      .catch(error => {
+        errorHandler(`${person.name} was not found on the server.`)
+        setTimeout(() => errorHandler(null), 5000)
+      })
+  }
+
   return (
     <div>
       <li className="note">{person.name} {person.number}</li>
       <button onClick={() => deletePerson(person, setPersons)}>Delete</button>
     </div>
   )
-} 
+}
 
-const Numbers = ({ persons, setPersons }) => {
+
+
+const Numbers = ({ persons, setPersons, errorHandler }) => {
 	const [ newSearch, setNewSearch ] = useState("")
 
 	const searchHandler = (event) => {
@@ -45,7 +53,7 @@ const Numbers = ({ persons, setPersons }) => {
 					<input onChange={searchHandler}/>
 				</div>
         <ul>
-					{filteredPersons.map(person => <Person key={person.id} person={person} setPersons={setPersons} />)}
+					{filteredPersons.map(person => <Person key={person.id} person={person} setPersons={setPersons} errorHandler={errorHandler} />)}
         </ul>
       </div>
 	)

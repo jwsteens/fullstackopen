@@ -1,27 +1,13 @@
 import { useState } from "react"
 import personService from '../services/persons'
 
-const Message = ({message}) => {
-  if (!message) return null
-  const style = {
-    color: 'darkgreen',
-    fontStyle: 'bold',
-    borderStyle: 'solid',
-    borderColor: 'green',
-    padding: '10px',
-    borderRadius: '4px',
-    background: '#cadeca'
-  }
 
-  return (<p style={style}>{message}</p>)
-
-}
 
 const Form = (props) => {
   const [ persons, setPersons ] = props.persons
   const [ newName, setNewName ] = useState('')
   const [ newPhone, setNewPhone ] = useState('')
-  const [ message, setMessage ] = useState('')
+  const { messageHandler } = props
 
   const nameChangeHandler = (event) => {
     setNewName(event.target.value)
@@ -38,8 +24,8 @@ const Form = (props) => {
       setPersons(persons.concat(data))
       setNewName('')
       setNewPhone('')
-      setMessage(`New person added!`)
-      setTimeout(() => setMessage(null), 5000)
+      messageHandler(`New person added!`)
+      setTimeout(() => messageHandler(null), 5000)
     })
   }
 
@@ -52,7 +38,6 @@ const Form = (props) => {
 
     if (newName === "") return alert("Please enter a name.")
     if (newPhone === "" || isNaN(newPhone)) return alert("Please enter a phone number.")
-    // if (persons.find(person => person.name === newName)) return alert(`${newName} is already in the phonebook.`)
     if (persons.find(person => person.number === newPhone)) return alert(`Someone with phone number ${newPhone} is already in the phonebook.`)
 
     const personObject = {
@@ -72,15 +57,14 @@ const Form = (props) => {
         setPersons(newPersons)
         setNewName('')
         setNewPhone('')
-        setMessage(`Phone number updated!`)
-        setTimeout(() => setMessage(null), 5000)
+        messageHandler(`Phone number updated!`)
+        setTimeout(() => messageHandler(null), 5000)
       })
 
   }
   
   return (
     <form onSubmit={addPerson}>
-      <Message message={message} />
       Add new people to the phonebook:
       <div>
         name: <input onChange={nameChangeHandler} />
