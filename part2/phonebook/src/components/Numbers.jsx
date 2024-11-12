@@ -19,7 +19,7 @@ const deletePerson = (person, setPersons) => {
 const Person = ({ person, persons, setPersons }) => {
   return (
     <div>
-      <li>{person.name} {person.number}</li>
+      <li className="note">{person.name} {person.number}</li>
       <button onClick={() => deletePerson(person, setPersons)}>Delete</button>
     </div>
   )

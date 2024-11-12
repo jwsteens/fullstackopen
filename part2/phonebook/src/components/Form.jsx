@@ -1,10 +1,27 @@
 import { useState } from "react"
 import personService from '../services/persons'
 
+const Message = ({message}) => {
+  if (!message) return null
+  const style = {
+    color: 'darkgreen',
+    fontStyle: 'bold',
+    borderStyle: 'solid',
+    borderColor: 'green',
+    padding: '10px',
+    borderRadius: '4px',
+    background: '#cadeca'
+  }
+
+  return (<p style={style}>{message}</p>)
+
+}
+
 const Form = (props) => {
   const [ persons, setPersons ] = props.persons
   const [ newName, setNewName ] = useState('')
   const [ newPhone, setNewPhone ] = useState('')
+  const [ message, setMessage ] = useState('')
 
   const nameChangeHandler = (event) => {
     setNewName(event.target.value)
@@ -14,10 +31,6 @@ const Form = (props) => {
     setNewPhone(event.target.value)
   }
 
-  const checkIfInPhonebook = ( person ) => {
-    return persons.find(queryPerson => queryPerson.name === person.name)
-  }
-
   const addNewPerson = ( personObject ) => {
     personService
     .createPerson(personObject)
@@ -25,7 +38,13 @@ const Form = (props) => {
       setPersons(persons.concat(data))
       setNewName('')
       setNewPhone('')
+      setMessage(`New person added!`)
+      setTimeout(() => setMessage(null), 5000)
     })
+  }
+
+  const checkIfInPhonebook = ( person ) => {
+    return persons.find(queryPerson => queryPerson.name === person.name)
   }
 
   const addPerson = (event) => {
@@ -51,15 +70,17 @@ const Form = (props) => {
         const newPersons = [...persons]
         newPersons[persons.findIndex(indexingPerson => indexingPerson.id === data.id)] = data
         setPersons(newPersons)
-        
         setNewName('')
         setNewPhone('')
+        setMessage(`Phone number updated!`)
+        setTimeout(() => setMessage(null), 5000)
       })
 
   }
   
   return (
     <form onSubmit={addPerson}>
+      <Message message={message} />
       Add new people to the phonebook:
       <div>
         name: <input onChange={nameChangeHandler} />
