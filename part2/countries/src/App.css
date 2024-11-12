@@ -15,5 +15,21 @@ ul {
 }
 
 img {
-  width: 500px;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .countryListItem {
+    width: 500px;
+  }
+
+  container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.countryListItem {
+  margin: 5px;
 }

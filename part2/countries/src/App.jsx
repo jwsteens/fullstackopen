@@ -31,7 +31,6 @@ const App = () => {
     <div>
       <Search setQuery={setQuery}/>
       <List query={query} data={data}/>
-      <Country query={query} data={data}/>
     </div>
   )
 }
