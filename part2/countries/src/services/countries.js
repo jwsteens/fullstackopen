@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 const getCountries = () => {
-  axios
+  return axios
     .get(`https://studies.cs.helsinki.fi/restcountries/api/all`)
-    .then(res => res.data)
+    .then(res => {
+      return res.data
+    })
 }
 
 export default { getCountries }
