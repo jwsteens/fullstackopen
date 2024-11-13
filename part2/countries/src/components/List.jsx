@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Country from './Country'
+import Weather from './Weather'
 
 const CountryListItem = ({ countryData, onlyCountry }) => {
   const [ showCountry, setShowCountry ] = useState(false)
@@ -17,6 +18,7 @@ const CountryListItem = ({ countryData, onlyCountry }) => {
           {showCountry ? "Hide" : "Show"} information
         </button>
       {showCountry ? <Country countryData={countryData}/> : null}
+      {showCountry ? <Weather countryData={countryData}/> : null}
     </li>
   )
 }
@@ -30,13 +32,13 @@ const List = ({query, data}) => {
   if (filteredData.length == 0) return <div><p>No matches!</p></div>
 
   return (
-    <container>
+    <div className="container">
       <ul>
         {filteredData.map((countryData, index) => {           
           return <CountryListItem countryData={countryData} onlyCountry={filteredData.length == 1} key={index}/>
         })}
       </ul>
-    </container>
+    </div>
   )
 }
 
